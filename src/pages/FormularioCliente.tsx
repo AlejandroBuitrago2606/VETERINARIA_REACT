@@ -2,6 +2,7 @@
 
 
 import * as React from 'react';
+import type { ChangeEvent } from 'react';
 import Alert from '@mui/material/Alert';
 import {
   Button,
@@ -14,11 +15,12 @@ import {
 } from '@mui/material';
 
 interface Cliente {
-    idcliente: number;
-    nombre: string;
-    apellido: string;
-    email: string;
-    telefono: string;
+  idcliente: number;
+  nombre: string;
+  apellido: string;
+  email: string;
+  telefono: string;
+  imagen: string | null;
 }
 
 interface ModalDinamicaProps {
@@ -30,13 +32,16 @@ interface ModalDinamicaProps {
 
 const ModalDinamicaCliente: React.FC<ModalDinamicaProps> = ({ open, onClose, opcion, objCliente }) => {
   const [cliente, setCliente] = React.useState<Cliente>({
-    
+
     idcliente: 0,
     nombre: '',
     apellido: '',
     email: '',
     telefono: '',
+    imagen: ''
   });
+
+  const [imagenURL, setImagenUrl] = React.useState('');
 
   const [alerta, setAlerta] = React.useState<{ tipo: 'success' | 'error'; mensaje: string } | null>(null);
 
@@ -47,7 +52,27 @@ const ModalDinamicaCliente: React.FC<ModalDinamicaProps> = ({ open, onClose, opc
       apellido: '',
       email: '',
       telefono: '',
+      imagen: ''
     });
+  };
+
+  const LeerArchivo = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    console.log(file);
+    let URLImagen = '';
+    const imageUrl = URL.createObjectURL(file);
+    const reader = new FileReader();
+    reader.onload = () => {
+      const dataUrl = reader.result as string;
+      console.log('Data URL:', dataUrl);
+      URLImagen = dataUrl;
+    };
+    reader.readAsDataURL(file);
+    alert(URLImagen);
+
+    setCliente({ ...cliente, imagen: URLImagen })
   };
 
   React.useEffect(() => {
@@ -58,6 +83,7 @@ const ModalDinamicaCliente: React.FC<ModalDinamicaProps> = ({ open, onClose, opc
         apellido: objCliente.apellido,
         email: objCliente.email,
         telefono: objCliente.telefono,
+        imagen: imagenURL == '' ? '' : imagenURL
       });
     } else {
       limpiarCampos();
@@ -69,7 +95,8 @@ const ModalDinamicaCliente: React.FC<ModalDinamicaProps> = ({ open, onClose, opc
 
     const metodo = opcion === 1 ? 'POST' : 'PUT';
     const url = `http://localhost:8000/cliente`;
-    
+    console.log(cliente);
+
 
     fetch(url, {
       method: metodo,
@@ -137,12 +164,34 @@ const ModalDinamicaCliente: React.FC<ModalDinamicaProps> = ({ open, onClose, opc
               margin="normal"
               value={cliente.telefono}
             />
+            <br />
+            <br />
+
+            <label>Añade una foto de perfil</label>
+            <br />
+
+
+
+            <label htmlFor="fotoperfil">
+
+              <input
+                id="fotoperfil"
+                type="file"
+                accept=".jpg,.png,.gif,.jpeg"
+                style={{ display: 'none' }}
+                onChange={LeerArchivo}
+              />
+              <Button variant="outlined" component="span" sx={{ mt: 1 }}>
+                Seleccionar imagen
+              </Button>
+            </label>
+
           </DialogContent>
           <DialogActions>
             <Button onClick={onClose} color="secondary">
               Cancelar
             </Button>
-            <Button type="submit" variant="contained" color="primary">
+            <Button type="submit" variant="contained" color="primary" onClick={AccionCliente}>
               Terminar
             </Button>
           </DialogActions>
@@ -154,11 +203,11 @@ const ModalDinamicaCliente: React.FC<ModalDinamicaProps> = ({ open, onClose, opc
         onClose={() => setAlerta(null)}
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       >
-     
-          <Alert onClose={() => setAlerta(null)} severity={alerta?.tipo} variant="filled" sx={{ width: '100%' }}>
-            {alerta?.mensaje}
-          </Alert>
-      
+
+        <Alert onClose={() => setAlerta(null)} severity={alerta?.tipo} variant="filled" sx={{ width: '100%' }}>
+          {alerta?.mensaje}
+        </Alert>
+
       </Snackbar>
     </>
   );

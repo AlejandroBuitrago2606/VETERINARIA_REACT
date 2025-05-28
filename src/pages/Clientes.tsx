@@ -16,6 +16,7 @@ interface Cliente {
     apellido: string;
     email: string;
     telefono: string;
+    imagen: string | null;
 }
 
 // Componentes estilizados
@@ -68,12 +69,27 @@ const Clientes = () => {
     }, []);
 
     const columns: GridColDef[] = [
-        { field: "idcliente", headerName: "#", width: 30 },
+        { field: "idcliente", headerName: "#", width: 70 },
         { field: "nombre", headerName: "Nombres", width: 146 },
         { field: "apellido", headerName: "Apellidos", width: 146 },
         { field: "email", headerName: "Email", width: 200 },
         { field: "telefono", headerName: "Teléfono", width: 200 },
+        {
+            field: "imagen",
+            headerName: "Foto",
+            width: 120,
+            renderCell: (params) => (
+                params.value ? (
+                    <img
+                        src={params.value}
+                        alt="Cliente"
+                        style={{ width: 50, height: 50, borderRadius: '50%', objectFit: 'cover' }}
+                    />
+                ) : null
+            )
+        }
     ];
+
 
     const AgregarCliente = () => {
         setOpcion(1);
@@ -145,11 +161,11 @@ const Clientes = () => {
             <Grid container spacing={2}>
                 <Grid item xs={12}>
                     <TableContainer>
-                        <DinamicTable 
-                            rows={dataClients} 
-                            columns={columns} 
-                            onEdit={ActualizarCliente} 
-                            onDelete={EliminarCliente} 
+                        <DinamicTable
+                            rows={dataClients}
+                            columns={columns}
+                            onEdit={ActualizarCliente}
+                            onDelete={EliminarCliente}
                         />
                     </TableContainer>
                 </Grid>
