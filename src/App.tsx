@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './components/navbar';
+import Navbar from './components/Navbar';
 import Inicio from './pages/inicio';
 import QuienesSomos from './pages/quienesSomos';
 import Contacto from './pages/contactanos';

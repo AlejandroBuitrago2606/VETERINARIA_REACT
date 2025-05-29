@@ -81,7 +81,7 @@ const Clientes = () => {
             renderCell: (params) => (
                 params.value ? (
                     <img
-                        src={params.value}
+                        src={`http://localhost:8000/uploads/${params.value}`}
                         alt="Cliente"
                         style={{ width: 50, height: 50, borderRadius: '50%', objectFit: 'cover' }}
                     />

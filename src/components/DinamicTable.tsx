@@ -52,7 +52,7 @@ const paginationModel ={page:0, pageSize: 8};
 
     return(
        
-        <Paper sx={{height: 600, width: '100%'}}role='region' aria-label='Tabla Dinamica'>
+        <Paper sx={{height: '100%', width: "auto"}}role='region' aria-label='Tabla Dinamica'>
             <DataGrid
             rows={rows}
             columns={columnasBotones}

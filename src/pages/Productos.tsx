@@ -7,7 +7,7 @@ import DinamicTable from '../components/DinamicTable';
 import { Alert, Button, Snackbar, Box, Typography, Card, CardContent } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
-import PersonIcon from '@mui/icons-material/Person';
+import ProductIcon from '@mui/icons-material/Storefront'; 
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 
 interface Producto {
@@ -23,7 +23,7 @@ interface Producto {
 
 // Componentes estilizados
 const HeaderCard = styled(Card)(({ theme }) => ({
-    background: 'linear-gradient(135deg, #1976d2 0%, #2196f3 50%, #42a5f5 100%)',
+    background: 'linear-gradient(90deg,rgba(255, 123, 0, 1) 0%, rgba(255, 255, 255, 1) 100%, rgba(255, 255, 255, 1) 100%);',
     color: 'white',
     marginBottom: theme.spacing(3),
     borderRadius: theme.spacing(2),
@@ -31,18 +31,19 @@ const HeaderCard = styled(Card)(({ theme }) => ({
 }));
 
 const StyledButton = styled(Button)(() => ({
-    background: 'linear-gradient(45deg, #2196f3 30%, #64b5f6 90%)',
+    background: 'linear-gradient(90deg,rgba(255, 123, 0, 1) 0%, rgba(255, 255, 255, 1) 100%, rgba(255, 255, 255, 1) 100%);',
     borderRadius: '25px',
     padding: '12px 30px',
+    color: '#000000',
     fontSize: '1rem',
     fontWeight: 'bold',
     textTransform: 'none',
     boxShadow: '0 4px 15px rgba(33, 150, 243, 0.3)',
     transition: 'all 0.3s ease',
     '&:hover': {
-        background: 'linear-gradient(45deg, #1976d2 30%, #2196f3 90%)',
+        background: 'linear-gradient(45deg, #388e3c 30%, #4caf50 90%)',
         transform: 'translateY(-2px)',
-        boxShadow: '0 6px 20px rgba(33, 150, 243, 0.4)',
+        boxShadow: '0 6px 20px rgba(76, 175, 80, 0.4)',
     },
 }));
 
@@ -181,13 +182,13 @@ const Productos = () => {
             <HeaderCard>
                 <CardContent sx={{ py: 4 }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                        <PersonIcon sx={{ fontSize: 40, mr: 2 }} />
+                        <ProductIcon sx={{ fontSize: 40, mr: 2 }} />
                         <Typography variant="h3" component="h1" fontWeight="bold">
-                            Nuestros Clientes
+                            Nuestros Productos
                         </Typography>
                     </Box>
                     <Typography variant="h6" sx={{ opacity: 0.9 }}>
-                        Administra la base de datos de clientes y propietarios de mascotas
+                        Administra e importa tus productos
                     </Typography>
                 </CardContent>
             </HeaderCard>
@@ -197,7 +198,7 @@ const Productos = () => {
                 <Box sx={{ mb: 4 }}>
                     <StyledButton
                         onClick={AgregarProducto}
-                        startIcon={<GroupAddIcon />}
+                        startIcon={<GroupAddIcon />}                        
                         size="large"
                     >
                         Registrar Nuevo Producto
