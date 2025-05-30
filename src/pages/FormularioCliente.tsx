@@ -81,6 +81,11 @@ const ModalDinamicaCliente: React.FC<ModalDinamicaProps> = ({ open, onClose, opc
     if (file) formData.append('imagen', file);
     if (!file && cliente.imagen) formData.append('imagenActual', cliente.imagen);
 
+    if (opcion !== 1) {
+      formData.append('idcliente', String(cliente.idcliente));
+    }
+
+
     fetch(url, {
       method: metodo,
       body: formData,
